@@ -11,7 +11,7 @@ class File {
     static void Main(string[] args) {
         File f = new File();
 
-        string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
+        // string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
         string YHDPpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/YHDP/TXN_93_02071001_20181102155600_06.DAT";
         // f.LO3(LO3path);
         f.YHDP(YHDPpath);
@@ -25,8 +25,8 @@ class File {
 
         while (true) {
             if (log[1] == 110 || log[1] == 111 || log[1] == 112 || log[1] == 113) {
-                string[] data = new string[56];
                 #region data
+                string[] data = new string[56];
                 data[0] = log[0].ToString();
                 data[1] = log[1].ToString();
                 data[2] = log[2].ToString();
@@ -88,7 +88,6 @@ class File {
                     Console.WriteLine(da);
                 }
             }
-            Console.WriteLine();
 
             int sourceIndex = log[0] + 1;
             if (log.Length - sourceIndex == 0) break;
@@ -104,6 +103,7 @@ class File {
         reader.Read(log, 0, (int)reader.Length);
         reader.Close();
 
+        
     }
 
     #region utility
