@@ -34,8 +34,6 @@ class File {
         reader.Read(f.log, 0, (int)reader.Length);
         reader.Close();
 
-        int sourceIndex = 0;
-
         while (true) {
             if (f.log[1] == 110 || f.log[1] == 111 || f.log[1] == 112 || f.log[1] == 113) {
                 string[] data = new string[56];
@@ -102,7 +100,7 @@ class File {
                 }
             }
 
-            sourceIndex = f.log[0] + 1;
+            int sourceIndex = f.log[0] + 1;
             if (f.log.Length - sourceIndex == 0) break;
             f.log_temp = new byte[f.log.Length - sourceIndex];
             Array.Copy(f.log, sourceIndex, f.log_temp, 0, f.log.Length - sourceIndex);
