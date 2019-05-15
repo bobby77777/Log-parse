@@ -26,7 +26,7 @@ class File {
         };
 
         int data_length = (int)data_index.Length;
-        string path = "/Users/bobby/Downloads/Work/034002LO300007.100.7A3";
+        string path = "/Users/bobby/Downloads/Work/Log解析/034002LO300007.100.7A3";
 
         // read Log to byte[] log
         FileStream reader = new FileStream(path, FileMode.Open);
@@ -40,6 +40,7 @@ class File {
         while (true) {
             if (f.log[1] == 110 || f.log[1] == 111 || f.log[1] == 112 || f.log[1] == 113) {
                     string[] data = new string[56];
+                    #region data
                     data[0] = f.log[0].ToString();
                     data[1] = f.log[1].ToString();
                     data[2] = f.log[2].ToString();
@@ -96,6 +97,10 @@ class File {
                     data[53] = f.byte_to_hex_string_to_hex(128, 1, true).ToString();
                     data[54] = f.rfu_format(129, 5).ToString();
                     data[55] = f.log[134].ToString();
+                    #endregion
+                    foreach (string da in data) {
+                        Console.WriteLine(da);
+                    }
             }
             
             sourceIndex = f.log[0] + 1;
