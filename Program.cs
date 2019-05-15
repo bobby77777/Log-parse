@@ -34,75 +34,74 @@ class File {
         reader.Read(f.log, 0, (int)reader.Length);
         reader.Close();
 
-        
         int sourceIndex = 0;
 
         while (true) {
             if (f.log[1] == 110 || f.log[1] == 111 || f.log[1] == 112 || f.log[1] == 113) {
-                    string[] data = new string[56];
-                    #region data
-                    data[0] = f.log[0].ToString();
-                    data[1] = f.log[1].ToString();
-                    data[2] = f.log[2].ToString();
-                    data[3] = f.byte_convert_unix_date_time(3, 4, true);
-                    data[4] = f.byte_to_hex_string_to_hex(7, 7, true).ToString();
-                    data[5] = f.log[14].ToString(); 
-                    data[6] = f.log[15].ToString();
-                    data[7] = f.byte_to_hex_string_to_hex(16, 3, true).ToString();
-                    data[8] = f.byte_to_hex_string_to_hex(19, 3, true).ToString();
-                    data[9] = f.byte_to_hex_string_to_hex(22, 2, true).ToString();
-                    data[10] = f.log[24].ToString();
-                    data[11] = "0x" + f.byte_to_hex_string_to_hex(25, 1, true).ToString();
-                    data[12] = "0x" + f.byte_to_hex_string_to_hex(26, 2, true).ToString();
-                    data[13] = f.log[28].ToString();
-                    data[14] = f.log[29].ToString();
-                    data[15] = f.log[30].ToString();
-                    data[16] = f.byte_to_hex_string_to_hex(31, 3, true).ToString();
-                    data[17] = f.byte_to_hex_string_to_hex(34, 3, true).ToString();
-                    data[18] = f.byte_to_hex_string_to_hex(37, 2, true).ToString();
-                    data[19] = f.log[39].ToString();
-                    data[20] = f.byte_to_hex_string_to_hex(40, 3, true).ToString();
-                    data[21] = f.byte_to_hex_string_to_hex(43, 3, true).ToString();
-                    data[22] = f.log[46].ToString();
-                    data[23] = f.byte_to_hex_string_to_hex(47, 3, true).ToString();
-                    data[24] = f.byte_convert_unix_date_time(50, 4, true).ToString();
-                    data[25] = "0x" + f.byte_to_hex_string_to_hex(54, 6, true).ToString();
-                    data[26] = f.byte_to_hex_string_to_hex(60, 3, true).ToString();
-                    data[27] = f.byte_to_hex_string_to_hex(63, 2, true).ToString();
-                    data[28] = f.log[65].ToString();
-                    data[29] = f.log[66].ToString();
-                    data[30] = f.byte_to_hex_string_to_hex(67, 4, true).ToString();
-                    data[31] = f.byte_to_hex_string_to_hex(71, 4, true).ToString();
-                    data[32] = f.byte_to_hex_string_to_hex(75, 2, true).ToString();
-                    data[33] = f.byte_convert_unix_date_time(77, 4, true).ToString();
-                    data[34] = f.byte_to_hex_string_to_hex(81, 2, true).ToString();
-                    data[35] = f.log[83].ToString();
-                    data[36] = f.byte_to_hex_string_to_hex(84, 3, true).ToString();
-                    data[37] = f.log[87].ToString();
-                    data[38] = f.byte_to_hex_string_to_hex(88, 3, true).ToString();
-                    data[39] = f.byte_to_hex_string_to_hex(91, 3, true).ToString();
-                    data[40] = f.byte_to_hex_string_to_hex(94, 3, true).ToString();
-                    data[41] = f.byte_to_hex_string_to_hex(97, 2, true).ToString();
-                    data[42] = f.byte_to_hex_string_to_hex(99, 2, true).ToString();
-                    data[43] = f.byte_to_hex_string_to_hex(101, 3, true).ToString();
-                    data[44] = f.rfu_format(104, 1, false);
-                    data[45] = f.rfu_format(105, 12).ToString() ;
-                    data[46] = f.log[117].ToString();
-                    data[47] = f.log[118].ToString();
-                    data[48] = f.byte_to_hex_string_to_hex(119, 2).ToString();
-                    data[49] = f.byte_to_hex_string_to_hex(121, 2, true).ToString();
-                    data[50] = f.byte_to_hex_string_to_hex(123, 2, false).ToString();
-                    data[51] = f.byte_to_hex_string_to_hex(125, 2, false).ToString();
-                    data[52] = f.log[127].ToString();
-                    data[53] = f.byte_to_hex_string_to_hex(128, 1, true).ToString();
-                    data[54] = f.rfu_format(129, 5).ToString();
-                    data[55] = f.log[134].ToString();
-                    #endregion
-                    foreach (string da in data) {
-                        Console.WriteLine(da);
-                    }
+                string[] data = new string[56];
+                #region data
+                data[0] = f.log[0].ToString();
+                data[1] = f.log[1].ToString();
+                data[2] = f.log[2].ToString();
+                data[3] = f.byte_convert_unix_date_time(3, 4, true);
+                data[4] = f.byte_to_hex_string_to_hex(7, 7, true).ToString();
+                data[5] = f.log[14].ToString(); 
+                data[6] = f.log[15].ToString();
+                data[7] = f.byte_to_hex_string_to_hex(16, 3, true).ToString();
+                data[8] = f.byte_to_hex_string_to_hex(19, 3, true).ToString();
+                data[9] = f.byte_to_hex_string_to_hex(22, 2, true).ToString();
+                data[10] = f.log[24].ToString();
+                data[11] = "0x" + f.byte_to_hex_string_to_hex(25, 1, true).ToString();
+                data[12] = "0x" + f.byte_to_hex_string_to_hex(26, 2, true).ToString();
+                data[13] = f.log[28].ToString();
+                data[14] = f.log[29].ToString();
+                data[15] = f.log[30].ToString();
+                data[16] = f.byte_to_hex_string_to_hex(31, 3, true).ToString();
+                data[17] = f.byte_to_hex_string_to_hex(34, 3, true).ToString();
+                data[18] = f.byte_to_hex_string_to_hex(37, 2, true).ToString();
+                data[19] = f.log[39].ToString();
+                data[20] = f.byte_to_hex_string_to_hex(40, 3, true).ToString();
+                data[21] = f.byte_to_hex_string_to_hex(43, 3, true).ToString();
+                data[22] = f.log[46].ToString();
+                data[23] = f.byte_to_hex_string_to_hex(47, 3, true).ToString();
+                data[24] = f.byte_convert_unix_date_time(50, 4, true).ToString();
+                data[25] = "0x" + f.byte_to_hex_string_to_hex(54, 6, true).ToString();
+                data[26] = f.byte_to_hex_string_to_hex(60, 3, true).ToString();
+                data[27] = f.byte_to_hex_string_to_hex(63, 2, true).ToString();
+                data[28] = f.log[65].ToString();
+                data[29] = f.log[66].ToString();
+                data[30] = f.byte_to_hex_string_to_hex(67, 4, true).ToString();
+                data[31] = f.byte_to_hex_string_to_hex(71, 4, true).ToString();
+                data[32] = f.byte_to_hex_string_to_hex(75, 2, true).ToString();
+                data[33] = f.byte_convert_unix_date_time(77, 4, true).ToString();
+                data[34] = f.byte_to_hex_string_to_hex(81, 2, true).ToString();
+                data[35] = f.log[83].ToString();
+                data[36] = f.byte_to_hex_string_to_hex(84, 3, true).ToString();
+                data[37] = f.log[87].ToString();
+                data[38] = f.byte_to_hex_string_to_hex(88, 3, true).ToString();
+                data[39] = f.byte_to_hex_string_to_hex(91, 3, true).ToString();
+                data[40] = f.byte_to_hex_string_to_hex(94, 3, true).ToString();
+                data[41] = f.byte_to_hex_string_to_hex(97, 2, true).ToString();
+                data[42] = f.byte_to_hex_string_to_hex(99, 2, true).ToString();
+                data[43] = f.byte_to_hex_string_to_hex(101, 3, true).ToString();
+                data[44] = f.rfu_format(104, 1, false);
+                data[45] = f.rfu_format(105, 12).ToString() ;
+                data[46] = f.log[117].ToString();
+                data[47] = f.log[118].ToString();
+                data[48] = f.byte_to_hex_string_to_hex(119, 2).ToString();
+                data[49] = f.byte_to_hex_string_to_hex(121, 2, true).ToString();
+                data[50] = f.byte_to_hex_string_to_hex(123, 2, false).ToString();
+                data[51] = f.byte_to_hex_string_to_hex(125, 2, false).ToString();
+                data[52] = f.log[127].ToString();
+                data[53] = f.byte_to_hex_string_to_hex(128, 1, true).ToString();
+                data[54] = f.rfu_format(129, 5).ToString();
+                data[55] = f.log[134].ToString();
+                #endregion
+                foreach (string da in data) {
+                    Console.WriteLine(da);
+                }
             }
-            
+
             sourceIndex = f.log[0] + 1;
             if (f.log.Length - sourceIndex == 0) break;
             f.log_temp = new byte[f.log.Length - sourceIndex];
@@ -251,27 +250,6 @@ class File {
         }
     }
 
-    // private String data_record(int type)
-    // {
-
-    //     switch (type)
-    //     {
-    //         //case 1:
-    //         //    return "¨q¶∏";
-    //         case 110:
-    //             return "";
-    //         case 111:
-    //             return "∏Ù¨G";
-    //         case 112:
-    //             return "ØS≥\";
-    //         case 114:
-    //             return "ØS∫ÿ≤º";
-    //         default:
-    //             return type.ToString();
-
-    //     }
-    // }
-
     private String entry_exit_flag(int type)
     {
         switch (type)
@@ -353,4 +331,5 @@ class File {
             }
 
         }
+
 }
