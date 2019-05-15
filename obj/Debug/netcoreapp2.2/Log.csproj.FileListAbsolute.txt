@@ -1,0 +1,11 @@
+/Users/bobby/Downloads/Code/C#/Log/bin/Debug/netcoreapp2.2/Log.deps.json
+/Users/bobby/Downloads/Code/C#/Log/bin/Debug/netcoreapp2.2/Log.runtimeconfig.json
+/Users/bobby/Downloads/Code/C#/Log/bin/Debug/netcoreapp2.2/Log.runtimeconfig.dev.json
+/Users/bobby/Downloads/Code/C#/Log/bin/Debug/netcoreapp2.2/Log.dll
+/Users/bobby/Downloads/Code/C#/Log/bin/Debug/netcoreapp2.2/Log.pdb
+/Users/bobby/Downloads/Code/C#/Log/obj/Debug/netcoreapp2.2/Log.csprojAssemblyReference.cache
+/Users/bobby/Downloads/Code/C#/Log/obj/Debug/netcoreapp2.2/Log.csproj.CoreCompileInputs.cache
+/Users/bobby/Downloads/Code/C#/Log/obj/Debug/netcoreapp2.2/Log.AssemblyInfoInputs.cache
+/Users/bobby/Downloads/Code/C#/Log/obj/Debug/netcoreapp2.2/Log.AssemblyInfo.cs
+/Users/bobby/Downloads/Code/C#/Log/obj/Debug/netcoreapp2.2/Log.dll
+/Users/bobby/Downloads/Code/C#/Log/obj/Debug/netcoreapp2.2/Log.pdb
