@@ -99,6 +99,7 @@ class File {
                     Console.WriteLine(da);
                 }
             }
+            Console.WriteLine();
 
             int sourceIndex = f.log[0] + 1;
             if (f.log.Length - sourceIndex == 0) break;
