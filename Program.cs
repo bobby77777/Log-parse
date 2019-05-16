@@ -110,15 +110,18 @@ class File {
             Byte_To_Hex(72, 48),
             Byte_To_Hex(120, 48),
             Byte_To_Hex(168, 48),
-            Hex_To_Int(Byte_To_Hex(217, 1), Byte_To_Hex(216, 1)),
-            Byte_To_Hex(218, 4), //?????????????????
+            Hex_To_Int(217, 2),
+
+            Byte_To_Hex(218, 4), //?? time
+            
             "0x" + Byte_To_Hex(222, 1),
-            Hex_To_Int(Byte_To_Hex(224, 1), Byte_To_Hex(223, 1)),
-            Hex_To_Int(Byte_To_Hex(226, 1), Byte_To_Hex(225, 1)),
-            Hex_To_Int(Byte_To_Hex(228, 1), Byte_To_Hex(227, 1)),
+            Hex_To_Int(224, 2),
+            Hex_To_Int(226, 2),
+            Hex_To_Int(228, 2),
             "0x" + Byte_To_Hex(229, 1),
             "0x" + Byte_To_Hex(230, 1),
-            
+
+
         };
         #endregion
         foreach (string data in datas) {
@@ -144,8 +147,12 @@ class File {
         return sb.ToString();
     }
 
-    private string Hex_To_Int(string head, string rear) {
-        return Convert.ToInt32((head + rear), 16).ToString();
+    private string Hex_To_Int(int index, int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = index ; index > index - length ; i--) {
+            sb.Append(Byte_To_Hex(i, 1));
+        }
+        return (Convert.ToInt32(sb.ToString(), 16)).ToString();
     }
 
     // private void Byte_To_Time(int index, int length) {
