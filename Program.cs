@@ -110,18 +110,41 @@ class File {
             Byte_To_Hex(72, 48),
             Byte_To_Hex(120, 48),
             Byte_To_Hex(168, 48),
-            Hex_To_Int(217, 2),
+            Hex_To_Int_Reverse(217, 2),
 
             Byte_To_Hex(218, 4), //?? time
             
             "0x" + Byte_To_Hex(222, 1),
-            Hex_To_Int(224, 2),
-            Hex_To_Int(226, 2),
-            Hex_To_Int(228, 2),
+            Hex_To_Int_Reverse(224, 2),
+            Hex_To_Int_Reverse(226, 2),
+            Hex_To_Int_Reverse(228, 2),
             "0x" + Byte_To_Hex(229, 1),
             "0x" + Byte_To_Hex(230, 1),
+            Hex_Reverse(234, 4),
+            Byte_To_Hex(235, 8),
+            Byte_To_Char_To_String(243, 8),
+            Byte_To_Hex(251, 8),
+            Byte_To_Hex(259, 8),
+            Byte_To_Hex(267, 8),
+            "0x" + Byte_To_Hex(275, 8),
 
+            Byte_To_Hex(283, 6), //??????
 
+            Byte_To_Hex(289, 8),
+            Hex_To_Int(297, 6),
+
+            Byte_To_Hex(303, 14), //???
+
+            Byte_To_Hex(317, 4),
+            Byte_To_Char_To_String(321, 15),
+            Hex_To_Int_Reverse(338, 2),
+
+            Byte_To_Hex(340, 4), //time
+            Byte_To_Hex(344, 48), //?????
+            
+            "0x" + Byte_To_Hex(392, 1),
+            Byte_To_Hex(393, 4),
+            
         };
         #endregion
         foreach (string data in datas) {
@@ -147,12 +170,24 @@ class File {
         return sb.ToString();
     }
 
-    private string Hex_To_Int(int index, int length) {
+    private string Hex_To_Int_Reverse(int index, int length) {
         StringBuilder sb = new StringBuilder();
-        for (int i = index ; index > index - length ; i--) {
+        for (int i = index ; i > index - length ; i--) {
             sb.Append(Byte_To_Hex(i, 1));
         }
-        return (Convert.ToInt32(sb.ToString(), 16)).ToString();
+        return Convert.ToInt32(sb.ToString(), 16).ToString();
+    }
+
+    private string Hex_To_Int(int index, int length) {
+        return Convert.ToInt32(Byte_To_Hex(index, length), 16).ToString();
+    }
+
+    private string Hex_Reverse(int index, int length) {
+        StringBuilder sb = new StringBuilder();
+        for  (int i = index ; i > index - length ; i--) {
+            sb.Append(Byte_To_Hex(i, 1));
+        }
+        return sb.ToString();
     }
 
     // private void Byte_To_Time(int index, int length) {
