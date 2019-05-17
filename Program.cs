@@ -99,98 +99,114 @@ class File {
 
     private void YHDP(string path) {
         FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length]; //14076
+        log = new byte[(int)reader.Length]; //1000
         reader.Read(log, 0, (int)reader.Length);
         reader.Close();
-
-        string[] datas = new string[] {
-            Byte_To_Char_To_String(66, 2),
-            Byte_To_Hex(68, 4),
-            Byte_To_Hex(72, 48),
-            Byte_To_Hex(120, 48),
-            Byte_To_Hex(168, 48),
-            Hex_Reverse(216, 2, true),
-            Byte_To_Time(218, 4, true),
-            "0x" + Byte_To_Hex(222, 1),
-            Hex_Reverse(223, 2, true),
-            Hex_Reverse(225, 2, true),
-            Hex_Reverse(227, 2, true),
-            "0x" + Byte_To_Hex(229, 1),
-            "0x" + Byte_To_Hex(230, 1),
-            Hex_Reverse(231, 4, false),
-            Byte_To_Hex(235, 8),
-            Byte_To_Char_To_String(243, 8),
-            Byte_To_Hex(251, 8),
-            Byte_To_Hex(259, 8),
-            Byte_To_Hex(267, 8),
-            "0x" + Byte_To_Hex(275, 8),
-            Byte_To_Char_To_String(283, 6),
-            Byte_To_Hex(289, 8),
-            Hex_To_Int(297, 6),
-            Byte_To_Char_To_String(303, 14),
-            Byte_To_Hex(317, 4),
-            Byte_To_Char_To_String(321, 15),
-            Hex_Reverse(336, 2, true),
-            Byte_To_Time(338, 4, true),
-            Byte_To_Hex(342, 48),
-            "0x" + Byte_To_Hex(390, 1),
-            Hex_To_Int(391, 4),
-            Hex_To_Int(395, 4),
-            Hex_To_Int(399, 2),
-            Hex_To_Int(401, 1),
-            Hex_To_Int(402, 2),
-            Hex_To_Int(404, 2),
-            Hex_To_Int(406, 1),
-            Hex_To_Int(407, 2),
-            Hex_To_Int(409, 2),
-            "0x" + Byte_To_Hex(411, 1),
-            Hex_To_Int(412, 2),
-            Byte_To_Hex(414, 6),
-            Byte_To_Char_To_String(420, 10),
-            Byte_To_Char_To_String(430, 6),
-            Byte_To_Time(436, 4, false),
-            "0x" + Byte_To_Hex(440, 1),
-            Hex_To_Int(441, 2),
-            "0x" + Byte_To_Hex(443, 1),
-            Hex_To_Int(444, 2),
-            Hex_To_Int(446, 2),
-            Hex_To_Int(448, 2),
-            Byte_To_Hex(450, 8),
-            "0x" + Byte_To_Hex(458, 1),
-            "0x" + Byte_To_Hex(459, 1),
-            Hex_To_Int(460, 4),
-            Hex_To_Int(464, 4),
-            Byte_To_Time(468, 4, false),
-            Byte_To_Time(472, 4, false),
-            Byte_To_Time(476, 4, false),
-            Byte_To_Hex(480, 4),
-            Byte_To_Hex(484, 4),
-            Byte_To_Hex(488, 4),
-            "0x" + Byte_To_Hex(492, 1),
-            Byte_To_Time(493, 4, false),
-            Hex_To_Int(497, 2),
-            Hex_To_Int(499, 2),
-            Byte_To_Hex(501, 2),
-            "0x" + Byte_To_Hex(503, 1),
-            Byte_To_Hex(505, 1),
-            Byte_To_Hex(506, 1),
-            "0x" + Byte_To_Hex(507, 1),
-            "0x" + Byte_To_Hex(508, 4),
-            "0x" + Byte_To_Hex(511, 1),
-            Hex_To_Int(512, 1),
-            Hex_To_Int(513, 1),
-            Byte_To_Time(514, 2, false),
-            Byte_To_Hex(516, 17),
-        };
         
-        foreach (string data in datas) {
-            Console.WriteLine(data);
-            Console.WriteLine();
+        log_temp = new byte[log.Length - 66];
+        Array.Copy(log, 66, log_temp, 0, log.Length - 66);
+        log = log_temp;
+        while (true) {
+            string[] datas = new string[] {
+                Byte_To_Char_To_String(0, 2),
+                Byte_To_Hex(2, 4),
+                Byte_To_Hex(6, 48),
+                Byte_To_Hex(54, 48),
+                Byte_To_Hex(102, 48),
+                Hex_Reverse(150, 2, true),
+                Byte_To_Time(152, 4, true),
+                "0x" + Byte_To_Hex(156, 1),
+                Hex_Reverse(157, 2, true),
+                Hex_Reverse(159, 2, true),
+                Hex_Reverse(161, 2, true),
+                "0x" + Byte_To_Hex(163, 1),
+                "0x" + Byte_To_Hex(164, 1),
+                Hex_Reverse(165, 4, false),
+                Byte_To_Hex(169, 8),
+                Byte_To_Char_To_String(177, 8),
+                Byte_To_Hex(185, 8),
+                Byte_To_Hex(193, 8),
+                Byte_To_Hex(201, 8),
+                "0x" + Byte_To_Hex(209, 8),
+                Byte_To_Char_To_String(217, 6),
+                Byte_To_Hex(223, 8),
+                Hex_To_Int(231, 6),
+                Byte_To_Char_To_String(237, 14),
+                Byte_To_Hex(251, 4),
+                Byte_To_Char_To_String(254, 15),
+                Hex_Reverse(269, 2, true),
+                Byte_To_Time(271, 4, true),
+                Byte_To_Hex(275, 48),
+                "0x" + Byte_To_Hex(323, 1),
+                Hex_To_Int(324, 4),
+                Hex_To_Int(328, 4),
+                Hex_To_Int(332, 2),
+                Hex_To_Int(335, 1),
+                Hex_To_Int(336, 2),
+                Hex_To_Int(338, 2),
+                Hex_To_Int(340, 1),
+                Hex_To_Int(341, 2),
+                Hex_To_Int(343, 2),
+                "0x" + Byte_To_Hex(345, 1),
+                Hex_To_Int(346, 2),
+                Byte_To_Hex(348, 6),
+                Byte_To_Char_To_String(354, 10),
+                Byte_To_Char_To_String(364, 6),
+                Byte_To_Time(370, 4, false),
+                "0x" + Byte_To_Hex(374, 1),
+                Hex_To_Int(375, 2),
+                "0x" + Byte_To_Hex(377, 1),
+                Hex_To_Int(378, 2),
+                Hex_To_Int(380, 2),
+                Hex_To_Int(382, 2),
+                Byte_To_Hex(384, 8),
+                "0x" + Byte_To_Hex(392, 1),
+                "0x" + Byte_To_Hex(393, 1),
+                Hex_To_Int(394, 4),
+                Hex_To_Int(398, 4),
+                Byte_To_Time(402, 4, false),
+                Byte_To_Time(406, 4, false),
+                Byte_To_Time(410, 4, false),
+                Byte_To_Hex(414, 4),
+                Byte_To_Hex(418, 4),
+                Byte_To_Hex(422, 4),
+                "0x" + Byte_To_Hex(426, 1),
+                Byte_To_Time(427, 4, false),
+                Hex_To_Int(431, 2),
+                Hex_To_Int(433, 2),
+                Byte_To_Hex(435, 2),
+                "0x" + Byte_To_Hex(437, 1),
+                Byte_To_Hex(438, 1),
+                Byte_To_Hex(439, 1),
+                "0x" + Byte_To_Hex(440, 1),
+                "0x" + Byte_To_Hex(441, 4),
+                "0x" + Byte_To_Hex(445, 1),
+                Hex_To_Int(446, 1),
+                Hex_To_Int(447, 1),
+                Byte_To_Time(448, 2, false),
+                Byte_To_Hex(450, 17),
+            };
+            foreach (string data in datas) {
+                Console.WriteLine(data);
+            }
+            Console.WriteLine("----------------------------------------------------------------------------");
+            log_temp = new byte[log.Length - 467];
+            if (log_temp.Length == 0) break;
+            Array.Copy(log, 467, log_temp, 0, log.Length - 467);
+            log = log_temp;
         }
+    }
+    
+    private void IPASS(string path) {
+        
+    }
+
+    private void ICASH(string path) {
 
     }
 
-    private string Byte_To_Char_To_String(int index, int length) {
+    #region YHDP
+        private string Byte_To_Char_To_String(int index, int length) {
         StringBuilder sb = new StringBuilder();
         for (int i = index ; i < index + length ; i++) {
             sb.Append((char)log[i]);
@@ -233,8 +249,9 @@ class File {
         return origin.ToString("yyyy/MM/dd HH:mm:ss");
     }
 
-
-    #region utility
+    #endregion
+    
+    #region LO3
 
     private String byte_convert_unix_date_time(int index, int length, bool LSB = false)
     {
