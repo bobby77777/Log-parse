@@ -12,20 +12,19 @@ class File {
         File f = new File();
         // string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
         // f.LO3(LO3path);
-        
         // string YHDPpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/YHDP/TXN_4A_02191012_20181022175218_02.DAT";
         // f.YHDP(YHDPpath);
 
-        // string ICASHpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/ICASH/ICTX2LOG_BV-419467522_20190510092614.dat";
-        // f.ICASH(ICASHpath);
+        string ICASHpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/ICASH/ICTX2LOG_BV-419467522_20190510092614.dat";
+        f.ICASH(ICASHpath);
 
-        string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
-        f.IPASS(IPASSpath);
+        // string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
+        // f.IPASS(IPASSpath);
     }
 
     private void LO3(string path) {
         FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length]; //1277
+        log = new byte[(int)reader.Length];
         reader.Read(log, 0, (int)reader.Length);
         reader.Close();
 
@@ -90,9 +89,7 @@ class File {
                 datas[54] = rfu_format(129, 5).ToString();
                 datas[55] = log[134].ToString();
                 #endregion
-                foreach (string data in datas) {
-                    Console.WriteLine(data);
-                }
+                Printdata(datas);
             }
 
             int sourceIndex = log[0] + 1;
@@ -105,7 +102,7 @@ class File {
 
     private void YHDP(string path) {
         FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length]; //1000
+        log = new byte[(int)reader.Length];
         reader.Read(log, 0, (int)reader.Length);
         reader.Close();
         
@@ -192,10 +189,7 @@ class File {
                 Byte_To_Time(448, 2, false),
                 Byte_To_Hex(450, 17),
             };
-            foreach (string data in datas) {
-                Console.WriteLine(data);
-            }
-            Console.WriteLine("----------------------------------------------------------------------------");
+            Printdata(datas);
             log_temp = new byte[log.Length - 467];
             if (log_temp.Length == 0) break;
             Array.Copy(log, 467, log_temp, 0, log.Length - 467);
@@ -297,10 +291,7 @@ class File {
                 "0x" + Byte_To_Hex(217, 35),
                 "0x" + Byte_To_Hex(252, 4),
             };
-            foreach (string data in datas) {
-                Console.WriteLine(data);
-            }
-            Console.WriteLine("----------------------------------------------------------------------------");
+            Printdata(datas);
             log_temp = new byte[log.Length - 256];
             if (log_temp.Length == 0) break;
             Array.Copy(log, 256, log_temp, 0, log.Length - 256);
@@ -309,10 +300,84 @@ class File {
     }
 
     private void IPASS(string path) {
+        FileStream reader = new FileStream(path, FileMode.Open);
+        log = new byte[(int)reader.Length];
+        reader.Read(log, 0, (int)reader.Length);
+        reader.Close();
 
+        log_temp = new byte[log.Length - 434];
+        Array.Copy(log, 434, log_temp, 0, log.Length - 434);
+        log = log_temp;
+        
+        while (true) {
+            string[] datas = new string[] {
+                Byte_To_Char_To_String(0, 1),
+                Byte_To_Char_To_String(1, 6),
+                Byte_To_Char_To_String(7, 1),
+                Byte_To_Char_To_String(8, 4),
+                Byte_To_Char_To_String(12, 4),
+                Byte_To_Char_To_String(16, 4),
+                Byte_To_Char_To_String(20, 8),
+                Byte_To_Char_To_String(28, 6),
+                Byte_To_Char_To_String(34, 2),
+                Byte_To_Char_To_String(36, 4),
+                Byte_To_Char_To_String(40, 4),
+                Byte_To_Char_To_String(44, 1),
+                Byte_To_Char_To_String(45, 1),
+                Byte_To_Char_To_String(46, 12),
+                Byte_To_Char_To_String(58, 12),
+                Byte_To_Char_To_String(70, 12),
+                Byte_To_Char_To_String(82, 3),
+                Byte_To_Char_To_String(85, 32),
+                Byte_To_Char_To_String(117, 6),
+                Byte_To_Char_To_String(123, 3),
+                Byte_To_Char_To_String(126, 12),
+                Byte_To_Char_To_String(138, 8),
+                Byte_To_Char_To_String(146, 6),
+                Byte_To_Char_To_String(152, 4),
+                Byte_To_Char_To_String(156, 4),
+                Byte_To_Char_To_String(160, 4),
+                Byte_To_Char_To_String(164, 4),
+                Byte_To_Char_To_String(168, 4),
+                Byte_To_Char_To_String(172, 2),
+                Byte_To_Char_To_String(174, 3),
+                Byte_To_Char_To_String(177, 3),
+                Byte_To_Char_To_String(180, 2),
+                Byte_To_Char_To_String(182, 4),
+                Byte_To_Char_To_String(186, 6),
+                Byte_To_Char_To_String(192, 8),
+                Byte_To_Char_To_String(200, 8),
+                Byte_To_Char_To_String(208, 8),
+                Byte_To_Char_To_String(216, 4),
+                Byte_To_Char_To_String(220, 4),
+                Byte_To_Char_To_String(224, 4),
+                Byte_To_Char_To_String(228, 8),
+                Byte_To_Char_To_String(236, 12),
+                Byte_To_Char_To_String(248, 16),
+                Byte_To_Char_To_String(264, 1),
+                Byte_To_Char_To_String(265, 2),
+                Byte_To_Char_To_String(267, 3),
+                Byte_To_Char_To_String(270, 3),
+                Byte_To_Char_To_String(273, 68),
+                Byte_To_Char_To_String(341, 8),
+            };
+            Printdata(datas);
+            log_temp = new byte[log.Length - 352];
+            if (log_temp.Length < 352) break;
+            Array.Copy(log, 352, log_temp, 0, log.Length - 352);
+            log = log_temp;
+        }
     }
 
+
     #region YHDP
+
+    private void Printdata(string[] datas) {
+        foreach (string data in datas) {
+            Console.WriteLine(data);
+        }
+        Console.WriteLine("----------------------------------------------------------------------------");
+    }
 
     private string Byte_To_Char_To_String(int index, int length) {
         StringBuilder sb = new StringBuilder();
