@@ -10,23 +10,34 @@ class File {
 
     static void Main(string[] args) {
         File f = new File();
-        // string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
-        // f.LO3(LO3path);
-        // string YHDPpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/YHDP/TXN_4A_02191012_20181022175218_02.DAT";
-        // f.YHDP(YHDPpath);
+        Console.Write("choose method(1.LO3, 2.YHDP, 3.ICASH, 4.IPASS): ");
+        int choose = Convert.ToInt16(Console.ReadLine());
+        Console.WriteLine();
 
-        string ICASHpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/ICASH/ICTX2LOG_BV-419467522_20190510092614.dat";
-        f.ICASH(ICASHpath);
-
-        // string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
-        // f.IPASS(IPASSpath);
+        switch (choose) {
+            case 1:
+                string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
+                f.LO3(LO3path);
+                break;
+            case 2:
+                string YHDPpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/YHDP/TXN_4A_02191012_20181022175218_02.DAT";
+                f.YHDP(YHDPpath);
+                break;
+            case 3:
+                string ICASHpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/ICASH/ICTX2LOG_BV-419467522_20190510092614.dat";
+                f.ICASH(ICASHpath);
+                break;
+            case 4:
+                string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
+                f.IPASS(IPASSpath);
+                break;
+            default:
+                break;
+        }
     }
 
     private void LO3(string path) {
-        FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length];
-        reader.Read(log, 0, (int)reader.Length);
-        reader.Close();
+        File_To_Log(path);
 
         while (true) {
             if (log[1] == 110 || log[1] == 111 || log[1] == 112 || log[1] == 113) {
@@ -94,21 +105,14 @@ class File {
 
             int sourceIndex = log[0] + 1;
             if (log.Length - sourceIndex == 0) break;
-            log_temp = new byte[log.Length - sourceIndex];
-            Array.Copy(log, sourceIndex, log_temp, 0, log.Length - sourceIndex);
-            log = log_temp;
+            LogChange(sourceIndex);
         }
     }
 
     private void YHDP(string path) {
-        FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length];
-        reader.Read(log, 0, (int)reader.Length);
-        reader.Close();
-        
-        log_temp = new byte[log.Length - 66];
-        Array.Copy(log, 66, log_temp, 0, log.Length - 66);
-        log = log_temp;
+        File_To_Log(path);
+        LogChange(66);
+
         while (true) {
             string[] datas = new string[] {
                 Byte_To_Char_To_String(0, 2),
@@ -190,22 +194,14 @@ class File {
                 Byte_To_Hex(450, 17),
             };
             Printdata(datas);
-            log_temp = new byte[log.Length - 467];
-            if (log_temp.Length == 0) break;
-            Array.Copy(log, 467, log_temp, 0, log.Length - 467);
-            log = log_temp;
+            LogChange(467);
+            if (log.Length == 0) break;
         }
     }
     
     private void ICASH(string path) {
-        FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length]; //1828
-        reader.Read(log, 0, (int)reader.Length);
-        reader.Close();
-
-        log_temp = new byte[log.Length - 36];
-        Array.Copy(log, 36, log_temp, 0, log.Length - 36);
-        log = log_temp;
+        File_To_Log(path);
+        LogChange(36);
 
         while (true) {
             string[] datas = new string[] {
@@ -292,23 +288,15 @@ class File {
                 "0x" + Byte_To_Hex(252, 4),
             };
             Printdata(datas);
-            log_temp = new byte[log.Length - 256];
-            if (log_temp.Length == 0) break;
-            Array.Copy(log, 256, log_temp, 0, log.Length - 256);
-            log = log_temp;
+            LogChange(256);
+            if (log.Length == 0) break;
         }
     }
 
     private void IPASS(string path) {
-        FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length];
-        reader.Read(log, 0, (int)reader.Length);
-        reader.Close();
+        File_To_Log(path);
+        LogChange(434);
 
-        log_temp = new byte[log.Length - 434];
-        Array.Copy(log, 434, log_temp, 0, log.Length - 434);
-        log = log_temp;
-        
         while (true) {
             string[] datas = new string[] {
                 Byte_To_Char_To_String(0, 1),
@@ -362,15 +350,26 @@ class File {
                 Byte_To_Char_To_String(341, 8),
             };
             Printdata(datas);
-            log_temp = new byte[log.Length - 352];
-            if (log_temp.Length < 352) break;
-            Array.Copy(log, 352, log_temp, 0, log.Length - 352);
-            log = log_temp;
+            LogChange(352);
+            if (log.Length < 352) break;
         }
     }
 
 
-    #region YHDP
+    #region Mine
+
+    private void File_To_Log(string path) {
+        FileStream reader = new FileStream(path, FileMode.Open);
+        log = new byte[(int)reader.Length];
+        reader.Read(log, 0, (int)reader.Length);
+        reader.Close();
+    }
+
+    private void LogChange(int datalength) {
+        log_temp = new byte[log.Length - datalength];
+        Array.Copy(log, datalength, log_temp, 0, log.Length - datalength);
+        log = log_temp;
+    }
 
     private void Printdata(string[] datas) {
         foreach (string data in datas) {
@@ -424,10 +423,9 @@ class File {
 
     #endregion
     
-    #region LO3
+    #region Example
 
-    private String byte_convert_unix_date_time(int index, int length, bool LSB = false)
-    {
+    private String byte_convert_unix_date_time(int index, int length, bool LSB = false) {
 
         log_temp = new byte[length];
         Array.Copy(log, index, log_temp, 0, length);
@@ -446,8 +444,7 @@ class File {
         return origin1.ToString("yyyy/MM/dd HH:mm:ss");
     }
 
-    private byte[] change_hlbyte(byte[] byte_temp)
-    {
+    private byte[] change_hlbyte(byte[] byte_temp) {
         byte[] byte_convert = new byte[byte_temp.Length];
 
         int j = 0;
@@ -460,8 +457,7 @@ class File {
         return byte_convert;
     }
 
-    private String byte_to_hex_string(int index, int length, bool LSB = false)
-    {
+    private String byte_to_hex_string(int index, int length, bool LSB = false) {
         log_temp = new byte[length];
         Array.Copy(log, index, log_temp, 0, length);
 
@@ -481,8 +477,7 @@ class File {
         return hex_string;
     }
 
-    private uint byte_to_hex_string_to_hex(int index, int length, bool LSB = false) //e.g. AAAA to 0xAAAA
-    {
+    private uint byte_to_hex_string_to_hex(int index, int length, bool LSB = false) {
         log_temp = new byte[length];
         Array.Copy(log, index, log_temp, 0, length);
 
@@ -503,8 +498,7 @@ class File {
         return Convert.ToUInt32(hex_string, 16);
     }
 
-    private String rfu_format(int index, int length, bool LSB = false) //e.g. 0 0 0 0 31 35
-    {
+    private String rfu_format(int index, int length, bool LSB = false) {
         log_temp = new byte[length];
         Array.Copy(log, index, log_temp, 0, length);
 
@@ -521,6 +515,7 @@ class File {
 
         return string_format;
     }
+
     #endregion
 
 }
