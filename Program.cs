@@ -10,7 +10,7 @@ class File {
 
     static void Main(string[] args) {
         File f = new File();
-        Console.Write("choose method(1.LO3, 2.YHDP, 3.ICASH, 4.IPASS): ");
+        Console.Write("choose method(1.LO3, 2.YHDP, 3.ICASH, 4.IPASS, 5.S1S2): ");
         int choose = Convert.ToInt16(Console.ReadLine());
         Console.WriteLine();
 
@@ -30,6 +30,10 @@ class File {
             case 4:
                 string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
                 f.IPASS(IPASSpath);
+                break;
+            case 5:
+                string S1S2path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/S1S2/00220.034_00000034_00073_00005.20190510092614_001U.DAT";
+                f.S1S2(S1S2path);
                 break;
             default:
                 break;
@@ -355,27 +359,47 @@ class File {
         }
     }
 
+    private void S1S2(string path) {
+        File_To_Log(path);
+        LogChange(12);
+
+        string[] datas = new string[] {
+            log[0].ToString(),
+            log[1].ToString(),
+            log[2].ToString(),
+            Byte_To_Hex_Reverse(3, 3, false),
+            log[6].ToString(),
+            Byte_To_Time(7, 4, true),
+            Byte_To_Hex_Reverse(11, 7, true),
+            log[18].ToString(),
+            log[19].ToString(),
+            Byte_To_Hex_Reverse(20, 3, true),
+            Byte_To_Hex_Reverse(23, 3, true),
+            log[26].ToString(),
+            log[27].ToString(),
+            Byte_To_Hex_Reverse(28, 3, true),
+            Byte_To_Hex_Reverse(31, 6, false),
+            Byte_To_Hex_Reverse(37, 3, true),
+            Byte_To_Hex_Reverse(40, 2, true),
+            log[42].ToString(),
+            log[43].ToString(),
+            log[44].ToString(),
+            log[45].ToString(),
+            Byte_To_Hex(46, 8),
+            Byte_To_Hex_To_Int(54, 3),
+            
+        };
+        Printdata(datas);
+    }
 
     #region Mine
 
-    private void File_To_Log(string path) {
-        FileStream reader = new FileStream(path, FileMode.Open);
-        log = new byte[(int)reader.Length];
-        reader.Read(log, 0, (int)reader.Length);
-        reader.Close();
-    }
-
-    private void LogChange(int datalength) {
-        log_temp = new byte[log.Length - datalength];
-        Array.Copy(log, datalength, log_temp, 0, log.Length - datalength);
-        log = log_temp;
-    }
-
-    private void Printdata(string[] datas) {
-        foreach (string data in datas) {
-            Console.WriteLine(data);
+    private string Byte_To_String(int index, int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = index ; i < index + length ; i++) {
+            sb.Append(log[i].ToString());
         }
-        Console.WriteLine("----------------------------------------------------------------------------");
+        return sb.ToString();
     }
 
     private string Byte_To_Char_To_String(int index, int length) {
@@ -419,6 +443,26 @@ class File {
         DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0);
         origin = origin.AddSeconds(time);
         return origin.ToString("yyyy/MM/dd HH:mm:ss");
+    }
+
+    private void File_To_Log(string path) {
+        FileStream reader = new FileStream(path, FileMode.Open);
+        log = new byte[(int)reader.Length];
+        reader.Read(log, 0, (int)reader.Length);
+        reader.Close();
+    }
+
+    private void LogChange(int datalength) {
+        log_temp = new byte[log.Length - datalength];
+        Array.Copy(log, datalength, log_temp, 0, log.Length - datalength);
+        log = log_temp;
+    }
+
+    private void Printdata(string[] datas) {
+        foreach (string data in datas) {
+            Console.WriteLine(data);
+        }
+        Console.WriteLine("----------------------------------------------------------------------------");
     }
 
     #endregion
