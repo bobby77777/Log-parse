@@ -11,32 +11,39 @@ class File {
     static void Main(string[] args) {
         File f = new File();
         Console.Write("Choose method(1.LO3, 2.YHDP, 3.ICASH, 4.IPASS, 5.S1S2): ");
-        int choose = Convert.ToInt16(Console.ReadLine());
+        string choosestring;
+        while ((choosestring = Console.ReadLine()) != "1" && choosestring != "2" && choosestring != "3" && choosestring != "4" && choosestring != "5") {
+            Console.Write("input again: ");
+        }
+        int choose = Convert.ToInt16(choosestring);
         Console.WriteLine();
-
-        switch (choose) {
-            case 1:
-                string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
-                f.LO3(LO3path);
-                break;
-            case 2:
-                string YHDPpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/YHDP/TXN_4A_02191012_20181022175218_02.DAT";
-                f.YHDP(YHDPpath);
-                break;
-            case 3:
-                string ICASHpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/ICASH/ICTX2LOG_BV-419467522_20190510092614.dat";
-                f.ICASH(ICASHpath);
-                break;
-            case 4:
-                string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
-                f.IPASS(IPASSpath);
-                break;
-            case 5:
-                string S1S2path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/S1S2/00220.034_00000034_00073_00005.20190510092614_001U.DAT";
-                f.S1S2(S1S2path);
-                break;
-            default:
-                break;
+        try {
+            switch (choose) {
+                case 1:
+                    string LO3path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/LO3/034002LO300007.100.7A3";
+                    f.LO3(LO3path);
+                    break;
+                case 2:
+                    string YHDPpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/YHDP/TXN_4A_02191012_20181022175218_02.DAT";
+                    f.YHDP(YHDPpath);
+                    break;
+                case 3:
+                    string ICASHpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/ICASH/ICTX2LOG_BV-419467522_20190510092614.dat";
+                    f.ICASH(ICASHpath);
+                    break;
+                case 4:
+                    string IPASSpath = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/IPASS/BVTI_07B61900910220190510105407.DAT";
+                    f.IPASS(IPASSpath);
+                    break;
+                case 5:
+                    string S1S2path = "/Users/bobby/Downloads/Work/Log解析/LOG_FILE/S1S2/00220.034_00000034_00073_00005.20190510092614_001U.DAT";
+                    f.S1S2(S1S2path);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception ex) {
+            Console.WriteLine(ex.Message);
         }
     }
 
