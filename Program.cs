@@ -1,4 +1,10 @@
-﻿using System;
+﻿/***********************************************************
+LOG解析工具
+解析 (LO3, YHDP, ICASH, IPASS, S1S2) 各檔案資料
+v1.0 2019/5/24
+************************************************************/
+
+using System;
 using System.IO;
 using System.Threading;
 using System.Text;
@@ -513,6 +519,7 @@ class File {
         return origin.ToString("yyyy/MM/dd HH:mm:ss");
     }
 
+    // read File to log array
     private void File_To_Log(string path) {
         FileStream reader = new FileStream(path, FileMode.Open);
         log = new byte[(int)reader.Length];
@@ -520,6 +527,7 @@ class File {
         reader.Close();
     }
 
+    // logtemp to log
     private void LogChange(int datalength) {
         log_temp = new byte[log.Length - datalength];
         Array.Copy(log, datalength, log_temp, 0, log.Length - datalength);
